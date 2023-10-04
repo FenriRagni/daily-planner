@@ -5,8 +5,6 @@ $(function () {
   var currentHour = dayjs();
   var calendar = $("#calendar");
 
-  console.log(currentHour.hour());
-
   for(var x = 0; x < calendar.children().length; x++){
     var hour = x + 9;
     var textInfo = localStorage.getItem("hour-"+ hour);
@@ -22,6 +20,19 @@ $(function () {
     else {
       $("#hour-"+hour).addClass("present");
     }
+  }
+  //setting if statements for days ending in st nd rd and th
+  if(currentHour.date() === 1 || currentHour.date() === 21 || currentHour.date() === 31){
+    $("#currentDay").text(currentHour.format("dddd, MMMM  D") + "st");
+  }
+  else if(currentHour.date() === 2 || currentHour.date() === 22){
+    $("#currentDay").text(currentHour.format("dddd, MMMM  D") + "nd");
+  }
+  else if(currentHour.date() === 3 || currentHour.date() === 23){
+    $("#currentDay").text(currentHour.format("dddd, MMMM  D") + "rd");
+  }
+  else{
+    $("#currentDay").text(currentHour.format("dddd, MMMM  D") + "th");
   }
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
